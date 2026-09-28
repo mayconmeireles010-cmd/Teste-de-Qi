@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio QI — 20 Perguntas</title>
+<style>
+:root{--bg:#070a14;--panel:#11172a;--panel2:#171f37;--text:#f7f8ff;--muted:#9da8c7;--purple:#7c5cff;--cyan:#28e0c0;--pink:#ff4fa3;--red:#ff6075;--line:#ffffff14}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:#070a14;overflow-x:hidden}
+body:before,body:after{content:"";position:fixed;width:420px;height:420px;border-radius:50%;filter:blur(90px);opacity:.22;pointer-events:none;z-index:-1}body:before{background:var(--purple);top:-180px;left:-130px}body:after{background:var(--cyan);right:-180px;bottom:-180px}
+.container{width:min(940px,92%);margin:auto;padding:28px 0 70px}.hero{text-align:center;margin-bottom:20px}.brand{font-weight:900;letter-spacing:3px;font-size:12px;color:#cfc9ff}.hero h1{font-size:clamp(38px,8vw,68px);margin:8px 0;background:linear-gradient(90deg,#fff,#b8a8ff,#5ff1d8);-webkit-background-clip:text;color:transparent}.hero p{margin:0;color:var(--muted)}
+.card{background:linear-gradient(145deg,#12192bdd,#0e1426ee);border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:0 25px 90px #0008;backdrop-filter:blur(18px)}.hidden{display:none!important}
+.start{position:relative;text-align:center;padding:42px 28px;overflow:hidden}.start:before{content:"";position:absolute;inset:-100px;background:conic-gradient(from 90deg,transparent,#7c5cff22,transparent,#28e0c022,transparent);animation:spin 8s linear infinite}.start>*{position:relative}
+.pulse{display:inline-flex;width:74px;height:74px;border-radius:24px;align-items:center;justify-content:center;font-size:34px;background:linear-gradient(135deg,var(--purple),#a477ff);box-shadow:0 0 0 0 #7c5cff88;animation:pulse 2s infinite}.start h2{font-size:32px;margin:18px 0 8px}.start p{color:var(--muted);line-height:1.65;max-width:650px;margin:0 auto 25px}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}.tip{padding:16px;border-radius:17px;background:#ffffff08;border:1px solid var(--line)}.tip b{display:block;margin-bottom:5px}.tip span{color:var(--muted);font-size:13px}
+.btn{border:0;border-radius:14px;padding:14px 21px;font-weight:800;cursor:pointer;font-size:15px;color:#fff;transition:.2s;position:relative;overflow:hidden}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(90deg,var(--purple),#9d73ff);box-shadow:0 10px 30px #7c5cff33}.secondary{background:#ffffff0d;border:1px solid var(--line)}
+.progress-wrap{margin-bottom:22px}.progress-info{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:9px}.progress{height:10px;background:#ffffff0b;border-radius:99px;overflow:hidden}.bar{height:100%;width:5%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--pink),var(--cyan));transition:.4s}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}.timer{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:12px;background:#ffffff0a;border:1px solid var(--line);font-weight:800;font-variant-numeric:tabular-nums}.timer.warning{color:#ffcb62;animation:blink 1s infinite}.category{font-size:12px;color:#bcb5ff;text-transform:uppercase;letter-spacing:1.5px}.question{font-size:27px;line-height:1.3;margin:10px 0 22px}.options{display:grid;gap:12px}.option{width:100%;text-align:left;background:var(--panel2);border:1px solid #ffffff0d;color:var(--text);padding:17px;border-radius:15px;cursor:pointer;font-size:16px;transition:.18s}.option:hover{transform:translateX(3px);border-color:#7c5cff88;background:#7c5cff12}.option.selected{border-color:var(--purple);background:#7c5cff20;box-shadow:0 0 0 2px #7c5cff20}.actions{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+.result{text-align:center}.score{font-size:82px;font-weight:950;line-height:1;background:linear-gradient(90deg,#a98cff,#39efd0);-webkit-background-clip:text;color:transparent;margin:10px}.result h2{margin:8px 0;font-size:30px}.result p{color:var(--muted);line-height:1.6}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0}.stat{background:#ffffff08;border:1px solid var(--line);border-radius:15px;padding:16px}.stat strong{font-size:25px;display:block}.stat span{color:var(--muted);font-size:13px}
+.leaderboard{text-align:left;margin-top:30px;padding-top:24px;border-top:1px solid var(--line)}.leaderboard h3{margin:0 0 13px}.rank{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:#ffffff06;margin:7px 0}.rank .pos{width:30px;font-weight:900}.rank .name{flex:1}.rank .pts{font-weight:900;color:#bfb4ff}
+.review{text-align:left;margin-top:24px}.review-item{padding:14px;border-radius:12px;background:#ffffff06;margin:9px 0}.correct{border-left:4px solid var(--cyan)}.wrong{border-left:4px solid var(--red)}.small{font-size:13px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#171f37;border:1px solid var(--line);padding:12px 16px;border-radius:13px;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 15px 40px #0007}.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #7c5cff55}50%{box-shadow:0 0 0 15px #7c5cff00}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes blink{50%{opacity:.55}}
+@media(max-width:650px){.container{padding-top:20px}.card{padding:20px;border-radius:22px}.tips,.stats{grid-template-columns:1fr}.question{font-size:21px}.quiz-top{align-items:flex-start}.score{font-size:64px}}
+
+.paywall{position:fixed;inset:0;background:#050813dd;backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}.paybox{width:min(480px,100%);background:#11182bdd;border:1px solid #ffffff18;border-radius:26px;padding:30px;box-shadow:0 30px 100px #000b;text-align:center}.paybox .pixicon{font-size:42px}.paybox h2{margin:10px 0 6px;font-size:28px}.paybox p{color:#aab4d0;line-height:1.55}.price{font-size:48px;font-weight:950;margin:16px 0;background:linear-gradient(90deg,#9b7cff,#28e0c0);-webkit-background-clip:text;color:transparent}.paynote{font-size:12px;color:#7f8aaa;margin-top:12px}.input{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff14;background:#ffffff08;color:#fff;outline:none;margin:7px 0;font-size:15px}.input:focus{border-color:#7c5cff}.pay-actions{display:grid;gap:10px;margin-top:14px}.demo{font-size:12px;color:#ffcf71;background:#ffcf7110;border:1px solid #ffcf7122;border-radius:10px;padding:10px;margin-top:12px}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="hero">
+    <div class="brand">NEXUS • IQ CHALLENGE</div>
+    <h1>Teste de QI</h1>
+    <p>20 desafios. Um só objetivo: descobrir até onde vai o seu raciocínio.</p>
+  </header>
+
+  <section id="start" class="card start">
+    <div class="pulse">🧠</div>
+    <h2>Você aceita o desafio?</h2>
+    <p>Uma experiência rápida e divertida com lógica, padrões, matemática e raciocínio. Você terá <b>10 minutos</b> para completar as 20 perguntas.</p>
+    <div class="tips">
+      <div class="tip"><b>⏱️ 10 minutos</b><span>Cronômetro durante o desafio.</span></div>
+      <div class="tip"><b>🔊 Sons</b><span>Feedback sonoro opcional.</span></div>
+      <div class="tip"><b>🏆 Ranking</b><span>Veja sua posição entre os resultados locais.</span></div>
+    </div>
+    <button class="btn primary" onclick="openPaywall()">Começar por R$ 2,00 →</button>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <div class="quiz-top">
+      <div class="category" id="category"></div>
+      <div class="timer" id="timer">⏱️ <span id="time">10:00</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-info"><span id="count">Pergunta 1 de 20</span><span id="percent">5%</span></div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+    </div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="actions">
+      <button class="btn secondary" id="prev" onclick="prevQuestion()">← Voltar</button>
+      <button class="btn primary" id="next" onclick="nextQuestion()">Próxima →</button>
+    </div>
+  </section>
+
+  <section id="result" class="card result hidden">
+    <div class="small">RESULTADO FINAL</div>
+    <div class="score" id="score">0/20</div>
+    <h2 id="level"></h2>
+    <p id="message"></p>
+    <div class="stats">
+      <div class="stat"><strong id="hits">0</strong><span>Acertos</span></div>
+      <div class="stat"><strong id="errors">0</strong><span>Erros</span></div>
+      <div class="stat"><strong id="rate">0%</strong><span>Aproveitamento</span></div>
+    </div>
+    <button class="btn primary" onclick="restart()">↻ Refazer teste</button>
+    <div class="leaderboard">
+      <h3>🏆 Ranking desta sessão</h3>
+      <div id="ranking"></div>
+      <div class="small">O ranking é salvo somente neste navegador.</div>
+    </div>
+    <div class="review"><h3>Revisão das respostas</h3><div id="review"></div></div>
+  </section>
+</div>
+<div id="toast" class="toast"></div>
+
+
+<script>const questions=[
+{c:"Sequências",q:"Qual número completa a sequência: 2, 4, 8, 16, ?",o:["20","24","32","36"],a:2},
+{c:"Sequências",q:"Qual número vem a seguir: 3, 6, 11, 18, 27, ?",o:["36","38","40","42"],a:1},
+{c:"Lógica",q:"Todos os Zips são Zaps. Alguns Zaps são Zups. Qual afirmação é necessariamente verdadeira?",o:["Todos os Zips são Zups","Alguns Zips são Zups","Nenhum Zip é Zup","Todos os Zips são Zaps"],a:3},
+{c:"Padrões",q:"Se A=1, B=2, C=3... quanto vale a palavra CAB?",o:["5","6","7","8"],a:1},
+{c:"Sequências",q:"Qual número falta: 1, 1, 2, 3, 5, 8, ?",o:["11","12","13","14"],a:2},
+{c:"Raciocínio",q:"Um relógio marca 3:00. Qual é o menor ângulo entre os ponteiros?",o:["60°","90°","120°","180°"],a:1},
+{c:"Analogia",q:"MÃO está para LUVA assim como PÉ está para:",o:["Meia","Calça","Sapato","Chinelo"],a:2},
+{c:"Sequências",q:"Qual número completa: 100, 50, 25, 12,5, ?",o:["6,25","7,5","8,25","10"],a:0},
+{c:"Lógica",q:"João é mais alto que Pedro. Pedro é mais alto que Lucas. Quem é o mais baixo?",o:["João","Pedro","Lucas","Não é possível saber"],a:2},
+{c:"Padrões",q:"Qual letra vem a seguir: A, C, F, J, O, ?",o:["T","U","V","W"],a:1},
+{c:"Matemática",q:"Se 5 máquinas fazem 5 peças em 5 minutos, quanto tempo 1 máquina leva para fazer 1 peça?",o:["1 minuto","5 minutos","10 minutos","25 minutos"],a:1},
+{c:"Lógica",q:"Você tem 3 caixas: maçãs, laranjas e mistas. Todas as etiquetas estão erradas. Tirando uma fruta de uma única caixa, qual caixa deve escolher para identificar todas?",o:["A de maçãs","A de laranjas","A mista","Qualquer uma"],a:2},
+{c:"Sequências",q:"Qual número não pertence ao padrão: 2, 4, 8, 16, 31, 64?",o:["2","16","31","64"],a:2},
+{c:"Raciocínio",q:"Um pai tem 4 filhos. Cada filho tem uma irmã. Quantos filhos o pai tem ao todo?",o:["4","5","8","9"],a:1},
+{c:"Analogia",q:"PÁSSARO está para VOAR assim como PEIXE está para:",o:["Nadar","Água","Escama","Rio"],a:0},
+{c:"Sequências",q:"Qual número completa: 4, 9, 16, 25, 36, ?",o:["42","45","49","52"],a:2},
+{c:"Lógica",q:"Se ontem foi domingo, que dia será depois de amanhã?",o:["Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"],a:1},
+{c:"Padrões",q:"Qual símbolo completa: ▲ ▲ ● ▲ ▲ ● ▲ ▲ ?",o:["▲","●","■","◆"],a:1},
+{c:"Matemática",q:"Um produto de R$100 recebe 20% de desconto. Qual é o preço final?",o:["R$70","R$75","R$80","R$85"],a:2},
+{c:"Desafio",q:"Há 10 pessoas em uma sala. Cada pessoa aperta a mão de todas as outras uma única vez. Quantos apertos de mão acontecem?",o:["45","50","55","90"],a:0}
+];
+
+let current=0,answers=Array(questions.length).fill(null),timeLeft=600,timerId=null,started=false;
+
+function beep(freq=600,duration=.08){
+  try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const c=new C(),o=c.createOscillator(),g=c.createGain();o.frequency.value=freq;o.type="sine";g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+duration);o.stop(c.currentTime+duration)}catch(e){}
+}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+function startTest(){
+ started=true;current=0;answers=Array(questions.length).fill(null);timeLeft=600;
+ document.getElementById("start").classList.add("hidden");document.getElementById("result").classList.add("hidden");document.getElementById("quiz").classList.remove("hidden");
+ render();clearInterval(timerId);timerId=setInterval(tick,1000);beep(700,.12);
+}
+function tick(){
+ timeLeft--; if(timeLeft<=0){timeLeft=0;clearInterval(timerId);beep(180,.3);toast("Tempo esgotado!");setTimeout(showResult,500)}
+ updateTimer();
+}
+function updateTimer(){
+ const m=String(Math.floor(timeLeft/60)).padStart(2,"0"),s=String(timeLeft%60).padStart(2,"0");
+ document.getElementById("time").textContent=`${m}:${s}`;
+ document.getElementById("timer").classList.toggle("warning",timeLeft<=60);
+}
+function render(){
+ const x=questions[current],pct=Math.round(((current+1)/questions.length)*100);
+ document.getElementById("count").textContent=`Pergunta ${current+1} de ${questions.length}`;
+ document.getElementById("percent").textContent=pct+"%";document.getElementById("bar").style.width=pct+"%";
+ document.getElementById("category").textContent=x.c;document.getElementById("question").textContent=x.q;
+ const box=document.getElementById("options");box.innerHTML="";
+ x.o.forEach((v,i)=>{const b=document.createElement("button");b.className="option"+(answers[current]===i?" selected":"");b.textContent=String.fromCharCode(65+i)+") "+v;b.onclick=()=>selectAnswer(i);box.appendChild(b)});
+ document.getElementById("prev").disabled=current===0;document.getElementById("next").textContent=current===questions.length-1?"Finalizar":"Próxima →";updateTimer();
+}
+function selectAnswer(i){answers[current]=i;beep(i===questions[current].a?820:360,.07);render()}
+function nextQuestion(){if(answers[current]===null){toast("Escolha uma resposta primeiro.");beep(220,.12);return}if(current<questions.length-1){current++;render()}else showResult()}
+function prevQuestion(){if(current>0){current--;render()}}
+function showResult(){
+ clearInterval(timerId);let hits=answers.reduce((s,v,i)=>s+(v===questions[i].a?1:0),0),rate=hits/20*100;
+ document.getElementById("quiz").classList.add("hidden");document.getElementById("result").classList.remove("hidden");
+ document.getElementById("score").textContent=`${hits}/20`;document.getElementById("hits").textContent=hits;document.getElementById("errors").textContent=20-hits;document.getElementById("rate").textContent=rate+"%";
+ let level=hits>=18?"Mente excepcional":hits>=15?"Raciocínio muito forte":hits>=11?"Bom raciocínio":hits>=7?"Desempenho intermediário":"Hora de treinar mais";
+ document.getElementById("level").textContent=level;
+ document.getElementById("message").textContent="Resultado recreativo: esta pontuação não é um QI clínico ou oficial. Ela representa apenas seu desempenho neste desafio.";
+ saveRanking(hits);renderRanking();renderReview();beep(hits>=15?1000:500,.18);
+}
+function saveRanking(score){
+ let r=JSON.parse(localStorage.getItem("nexusIQRanking")||"[]");
+ r.push({score,date:new Date().toLocaleDateString("pt-BR"),time:600-timeLeft});r.sort((a,b)=>b.score-a.score);r=r.slice(0,5);localStorage.setItem("nexusIQRanking",JSON.stringify(r));
+}
+function renderRanking(){
+ const r=JSON.parse(localStorage.getItem("nexusIQRanking")||"[]"),box=document.getElementById("ranking");box.innerHTML="";
+ if(!r.length){box.innerHTML='<div class="small">Ainda não há resultados.</div>';return}
+ r.forEach((x,i)=>{const d=document.createElement("div");d.className="rank";d.innerHTML=`<span class="pos">${["🥇","🥈","🥉","4º","5º"][i]}</span><span class="name">${x.date}</span><span class="pts">${x.score}/20</span>`;box.appendChild(d)})
+}
+function renderReview(){
+ const rev=document.getElementById("review");rev.innerHTML="";
+ questions.forEach((x,i)=>{const d=document.createElement("div");d.className="review-item "+(answers[i]===x.a?"correct":"wrong");d.innerHTML=`<b>${i+1}. ${x.q}</b><br><span class="small">Sua resposta: ${answers[i]===null?"—":x.o[answers[i]]} · Correta: ${x.o[x.a]}</span>`;rev.appendChild(d)})
+}
+function restart(){document.getElementById("result").classList.add("hidden");startTest()}
+
+function openPaywall(){document.getElementById("paywall").classList.remove("hidden")}
+function closePaywall(){document.getElementById("paywall").classList.add("hidden")}
+function beginPayment(){
+ const name=document.getElementById("payerName").value.trim(),email=document.getElementById("payerEmail").value.trim();
+ if(!name||!email||!email.includes("@")){toast("Informe nome e e-mail válidos.");beep(220,.12);return}
+ /*
+  * INTEGRAÇÃO REAL:
+  * 1) Envie name/email para seu backend.
+  * 2) O backend cria uma cobrança de R$2,00 no Mercado Pago ou Asaas.
+  * 3) Redirecione o cliente para o Checkout/QR Code.
+  * 4) O webhook do provedor confirma o pagamento.
+  * 5) Somente após a confirmação, o backend libera um token de acesso ao teste.
+  *
+  * Nunca coloque Access Token/Secret Key do provedor neste arquivo HTML.
+  */
+ toast("Checkout ainda não conectado. Configure o provedor de pagamento para ativar.");
+}
+
+</script>
+
+
+<div id="paywall" class="paywall hidden">
+  <div class="paybox">
+    <div class="pixicon">💜</div>
+    <h2>Desbloqueie seu teste</h2>
+    <p>Faça um Pix de <b>R$ 2,00</b> para liberar as 20 perguntas.</p>
+    <div class="price">R$ 2,00</div>
+    <div style="background:#fff;border-radius:16px;padding:12px;display:inline-block;margin:5px 0 14px">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeoAAAHqAQAAAADjFjCXAAAEMUlEQVR4nO2dQY7jOAxFP0cGspSBPkCOIt9gjlSYI/UN7KPkAA3IywAO/iwkWnL1Lk6jpiafi1TKyYPKAEHyk5LLiBO2/HWGBoQLFy5cuHDhwoW/FrdqA2xqv44Pa++wjA+zafVL0+tWF/6meCJJZgBYzTgjkLxdSHIDZwTaRw4EEEiSPOInVxf+ZvhQf64jkH4CxBo2JD4MiHcjAFjK9VvEChgQttesLlw4ANgUN2AZAaQcaDYCwGqGxQb8Zv+tP174N8X5z/iw8nYZH8Z5HcAZABDvXs39sdWFvwfu8SsSwAog3QZYyiCWvwMN8ddg+7eJFej7yt/63oV/Mb4UqQrYhEBgHWAftwFItwuRciDS7UKbUHXtS1cX/mY4eDQgbiAzwDlWXVvF7e9f5vyt71341+I2Fb1gpZDDcvXeyHKtcpVz3GDTOqB27l63uvB3w3ddGjaUGi5mGDBslm5Wyrxa9QHgcr0bU4b6dcLPmCdL78Albv6SA4t8Td4gBmL9oPSVlWGFP2WlmiseFkkgkkjcqjvOAPwa3dci5XXCz1jTEM31OMODW/W1DajDsDogk5oQfsJ8qhpKmCNzYNOwxR3b9DXlg5CV1wl/yjqvSxm1pNvTbM21uyc2d1SGFf60FQ1LrD/AMnZYR+zXXKrGu3GZAEMkLOWHS99vfe/CvxhfRsDMSpekRD2z6wYzuxBYL77JKQNYxqDOifAzVus1Fw1VSOxCdo71paXeck11nfDnzb2uOdynai50GrZWc9Kwws9ZdZ/ia7uGyKgNkjKM5bGRl6FYJ/yMdc3g5MGtxT9Ps3T/K/MKxTrhp6z14VxI7M3gg6+15Iou137rexf+VfihS+x1XZGqdfqKspe4XuPB5HXCnzLPsG36UGf+1bFyK+52wQFAsU74CWu+BqAPbnVAtsvXLhJSnRPhp6yly7a/yaev/d4Az7qHXCuvE/6UdXm1DFnL5dD18JpPesJVrBN+yjoNu6vUbtJfe3OeV/cphbxO+Hk8spwM82OvgWZX0qZI2uRz2PLYCc1hhZ/DO6naDcN20drt9OyqOR9kKNYJf868aNubwbl9sA9jS+oF3DHVrxN+yjzW7QdgyV7Dzt4qKVPaqmY1mxB+ymrQinXmXw+AZaCLf8UJ3RN9aCavE/6s8Wjer6PPXP1di3CFU6wT/rzVlFos8PMp2JZXZ/+0O7IjrxN+Ak9e3PkZRQDL9W4AHubytaXZQJteuLrwN8MPXeJ983C/g30/j5jb4F9dYuGvxM2udyNv9VlhNpXHFKOGvkQSi10U64S/Ek95T5++gx2IG+wjo5wlK4L3z6wu/C3wz8/q5GJhI7ANAB5DfRr2HGhYR3CZ6sOe+JLVhb8nXr1uKQk1wBB/lRPXwPqDBljxRCASBjzMffIFqwt/T9z03+uECxcuXLhw4cL/F/i/cwZnxJbsx4YAAAAASUVORK5CYII=" alt="QR Code Pix de R$ 2,00" style="width:220px;height:220px;display:block">
+    </div>
+    <div class="small">Aponte a câmera do seu banco para o QR Code.</div>
+    <button class="btn secondary" style="margin-top:12px" onclick="copyPix()">📋 Copiar Pix Copia e Cola</button>
+    <div id="paymentStatus" class="small" style="margin-top:12px">Depois de pagar, toque em “Já fiz o pagamento”.</div>
+    <div class="pay-actions">
+      <button class="btn primary" onclick="manualPaid()">Já fiz o pagamento →</button>
+      <button class="btn secondary" onclick="closePaywall()">Cancelar</button>
+    </div>
+    <div class="demo">⚠️ Nesta versão simples, o site não consegue verificar automaticamente se o Pix foi recebido. Só use o botão acima se você realmente tiver pago.</div>
+  </div>
+</div>
+
+</body>
+</html>
